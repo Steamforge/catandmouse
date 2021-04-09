@@ -1,0 +1,11 @@
+:root {
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-red: #ff0000;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
