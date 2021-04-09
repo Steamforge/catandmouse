@@ -1,41 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setCardDraw, setCardHand } from '../state/actions';
 
 import { deck, shuffle } from '../../utils';
 
-// import Card from '../components/Card';
 import Layout from '../components/layout';
 import Stack from '../components/Stack';
 import Hand from '../components/Hand';
 
 const IndexPage = () => {
-  const [cardDraw, setCardDraw] = useState([]);
-  // const [cardDiscard, setCardDiscard] = useState([]);
-  const [cardHand, setCardHand] = useState([]);
+  const cardDraw = useSelector(({ state }) => state.cardDraw);
+  const cardHand = useSelector(({ state }) => state.cardHand);
+  const dispatch = useDispatch();
+
+  const HAND_SIZE = 5;
 
   useEffect(() => {
-    const newDeck = deck();
-    setCardDraw(shuffle(newDeck));
-  }, []);
+    dispatch(setCardDraw(shuffle(deck())));
+  }, [dispatch]);
 
   const playCard = () => {
     if (cardDraw.length > 0) {
       const newDraw = [...cardDraw];
       const newHand = [...cardHand];
 
-      if (newHand.length < 5) {
-        for (let i = 0; i < 5; i++) {
-          let removed = newDraw.pop();
-          newHand.push(removed);
+      if (newHand.length < HAND_SIZE) {
+        for (let i = 0; i < HAND_SIZE; i++) {
+          newHand.push(newDraw.pop());
         }
-      }
 
-      setCardHand(newHand);
-      setCardDraw(newDraw);
+        dispatch(setCardHand(newHand));
+        dispatch(setCardDraw(newDraw));
+      }
     }
   };
 
   return (
-    <Layout pagetitle="skip">
+    <Layout pagetitle="cat and mouse">
       <Stack count={cardDraw.length} onClick={() => playCard()} />
       <Hand cards={cardHand} />
     </Layout>
