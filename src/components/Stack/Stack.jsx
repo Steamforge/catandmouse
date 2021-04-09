@@ -7,7 +7,7 @@ import * as styles from './Stack.module.scss';
 
 const Stack = ({ count, onClick }) => (
   <>
-    <div>{count}</div>
+    <div className={cx(styles.count)}>{count}</div>
     <div className={cx(styles.root)} onClick={onClick}>
       {count >= 1 && <Card back className={cx(styles.card, styles.cardTop)} />}
       {count >= 2 && <Card back className={cx(styles.card, styles.cardMid)} />}
