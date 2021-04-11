@@ -20,60 +20,52 @@
     background-size: 20px 20px;
   }
 
-  &::after,
-  &::before {
-    display: block;
-    font-family: v(open-sans);
-    font-size: 24px;
-    line-height: 1;
-    height: 24px;
-    position: absolute;
-    text-align: center;
-    width: 24px;
-  }
-
-  &::after {
-    bottom: 4px;
-    right: 4px;
-  }
-  &::before {
-    left: 4px;
-    top: 4px;
-  }
-
-  &.spade::after,
-  &.spade::before {
-    content: '♠︎';
-  }
-  &.heart::after,
-  &.heart::before {
-    content: '♥︎';
-  }
-  &.club::after,
-  &.club::before {
-    content: '♣︎';
-  }
-  &.diamond::after,
-  &.diamond::before {
-    content: '♦︎';
-  }
-
-  &.heart::after,
-  &.diamond::after,
-  &.heart::before,
-  &.diamond::before {
-    color: v(color-red);
-  }
-
-  &.club::after,
-  &.spade::after,
-  &.club::before,
-  &.spade::before {
-    color: v(color-black);
+  &.active {
+    border-color: rebeccapurple;
+    opacity: 0.9;
   }
 }
 
-.rank {
+.rankBot,
+.rankTop {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
   font-family: v(open-sans);
-  font-size: 24px;
+  font-size: 16px;
+  justify-content: center;
+  line-height: 1;
+  position: absolute;
+
+  &::after {
+    font-family: v(open-sans);
+    font-size: 16px;
+  }
+
+  &.spade::after {
+    color: v(color-black);
+    content: '♠︎';
+  }
+  &.heart::after {
+    color: v(color-red);
+    content: '♥︎';
+  }
+  &.club::after {
+    color: v(color-black);
+    content: '♣︎';
+  }
+  &.diamond::after {
+    color: v(color-red);
+    content: '♦︎';
+  }
+}
+
+.rankBot {
+  bottom: 4px;
+  right: 4px;
+  transform: rotate(180deg);
+}
+.rankTop {
+  left: 4px;
+  top: 4px;
 }
