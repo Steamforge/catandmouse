@@ -2,34 +2,33 @@
   position: relative;
   display: inline-block;
   padding-bottom: 4px;
+}
 
-  .card:first-child {
+.card {
+  &:first-child {
     cursor: pointer;
     position: relative;
+    z-index: 3;
   }
-  .card:last-child {
+  &:last-child {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
   }
-
-  .empty {
-    background-color: #ccc;
+  &:nth-child(2) {
+    position: absolute;
+    z-index: 2;
+    top: 1px;
+    left: 2px;
+  }
+  &:nth-child(3) {
+    position: absolute;
+    z-index: 1;
+    top: 3px;
+    left: 4px;
   }
 }
 
-.cardTop {
-  z-index: 3;
-}
-.cardMid {
-  position: absolute;
-  z-index: 2;
-  top: 1px;
-  left: 2px;
-}
-.cardBot {
-  position: absolute;
-  z-index: 1;
-  top: 3px;
-  left: 4px;
+.empty {
+  background-color: #ccc;
 }
 
 .count {
