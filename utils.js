@@ -1,20 +1,35 @@
+export const DraggbleTypes = {
+  HAND: 'hand',
+  HOLD0: 'hold0',
+  HOLD1: 'hold1',
+  HOLD2: 'hold2',
+  HOLD3: 'hold3',
+  BUILD0: 'build0',
+  BUILD1: 'build1',
+  BUILD2: 'build2',
+  BUILD3: 'build3',
+  STOCK: 'stock',
+};
+
+export const ranks = [
+  'A',
+  '2',
+  '3',
+  '4',
+  '5',
+  '6',
+  '7',
+  '8',
+  '9',
+  '10',
+  'J',
+  'Q',
+  'K',
+];
+
+const suits = ['heart', 'diamond', 'spade', 'club'];
+
 export const deck = () => {
-  const ranks = [
-    'A',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
-    '10',
-    'J',
-    'Q',
-    'K',
-  ];
-  const suits = ['heart', 'diamond', 'spade', 'club'];
   const cards = [];
 
   suits.forEach(suit => ranks.forEach(rank => cards.push({ rank, suit })));
@@ -41,4 +56,13 @@ export const shuffle = array => {
   }
 
   return array;
+};
+
+//reorder an array
+export const reorder = (list, startIndex, endIndex) => {
+  const result = [...list];
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed)[0];
+
+  return result;
 };

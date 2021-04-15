@@ -12,16 +12,19 @@
 }
 
 .card {
-  background-color: #eee;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.25);
+  background-color: v(color-gray-light);
+  box-shadow: 0 0 5px v(tint-black-25);
   position: absolute;
 
   &:last-of-type {
     background-color: v(color-white);
-    cursor: pointer;
 
     .active & {
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.25), inset 0 0 10px rebeccapurple;
+      box-shadow: 0 0 5px v(tint-black-25), inset 0 0 10px v(color-green);
+    }
+
+    .error & {
+      box-shadow: 0 0 5px v(tint-black-25), inset 0 0 10px v(color-red);
     }
   }
 
@@ -33,11 +36,20 @@
 }
 
 .empty {
-  background-color: v(color-white);
+  background-color: v(color-gray-light);
+  border-style: dashed;
   position: relative;
   z-index: 0;
 
   .active & {
-    box-shadow: inset 0px 0px 10px rebeccapurple;
+    box-shadow: inset 0 0 10px v(color-green);
   }
+
+  .error & {
+    box-shadow: inset 0 0 10px v(color-red);
+  }
+}
+
+.nope {
+  transform: none !important;
 }

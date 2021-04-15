@@ -10,6 +10,7 @@ const Card = ({
   provided,
   rank,
   snapshot,
+  style,
   suit,
 }) => (
   <div
@@ -23,6 +24,7 @@ const Card = ({
     )}
     onClick={onClick}
     ref={provided?.innerRef}
+    style={style}
     {...provided?.draggableProps}
     {...provided?.dragHandleProps}
     {...provided?.droppableProps}

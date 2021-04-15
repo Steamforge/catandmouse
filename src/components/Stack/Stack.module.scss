@@ -11,7 +11,7 @@
     z-index: 3;
   }
   &:last-child {
-    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.25);
+    box-shadow: 2px 2px 2px v(tint-black-25);
   }
   &:nth-child(2) {
     position: absolute;
@@ -28,9 +28,6 @@
 }
 
 .empty {
-  background-color: #ccc;
-}
-
-.count {
-  font-family: v(open-sans);
+  background-color: v(color-gray-light);
+  border-style: dashed;
 }
