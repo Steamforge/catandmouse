@@ -7,13 +7,20 @@ import { useSelector } from 'react-redux';
 import Card from '../Card';
 import DragPlaceholder from '../DragPlaceholder';
 
+import { DraggbleTypes } from '../../../utils';
+
 import * as styles from './Hand.module.scss';
 
 const Hand = () => {
-  const cardHand = useSelector(({ state }) => state.cardHand);
+  const { cardHand, cardDragging } = useSelector(({ state }) => state);
+  const isDropDisabled = cardDragging.droppableId !== DraggbleTypes.HAND;
 
   return (
-    <Droppable direction="horizontal" droppableId="hand">
+    <Droppable
+      direction="horizontal"
+      droppableId={DraggbleTypes.HAND}
+      isDropDisabled={isDropDisabled}
+    >
       {provided => (
         <div
           className={cx(styles.root)}
@@ -22,9 +29,9 @@ const Hand = () => {
         >
           {cardHand.map(({ rank, suit }, index) => (
             <Draggable
-              draggableId={`${suit}${rank}`}
+              draggableId={`${DraggbleTypes.HAND}|${suit}|${rank}`}
               index={index}
-              key={`${suit}${rank}`}
+              key={`${DraggbleTypes.HAND}|${suit}|${rank}`}
             >
               {(provided, snapshot) => (
                 <Card

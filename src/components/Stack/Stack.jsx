@@ -1,47 +1,47 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { setCardDraw, setCardHand } from '../../state/actions';
+import { Draggable } from 'react-beautiful-dnd';
 
 import Card from '../Card';
 
 import * as styles from './Stack.module.scss';
 
-const HAND_SIZE = 5;
-
-const Stack = () => {
-  const cardDraw = useSelector(({ state }) => state.cardDraw);
-  const cardHand = useSelector(({ state }) => state.cardHand);
-  const dispatch = useDispatch();
-
-  const drawCount = cardDraw.length;
-
-  const playCard = () => {
-    if (drawCount > 0 && cardHand.length < HAND_SIZE) {
-      const newDraw = [...cardDraw];
-      const newHand = [...cardHand];
-
-      for (let i = 0; i < HAND_SIZE - cardHand.length; i++) {
-        newHand.push(newDraw.pop());
-      }
-
-      dispatch(setCardHand(newHand));
-      dispatch(setCardDraw(newDraw));
-    }
-  };
-
+const Stack = ({ className, count, onClick, source, topCard }) => {
   const getCardBack = () => <Card back className={cx(styles.card)} />;
 
   return (
-    <div>
-      <div className={cx(styles.count)}>{drawCount}</div>
-      <div className={cx(styles.root)} onClick={() => playCard()}>
-        {drawCount >= 1 && getCardBack()}
-        {drawCount >= 2 && getCardBack()}
-        {drawCount >= 3 && getCardBack()}
-        {drawCount === 0 && <Card className={cx(styles.empty)} />}
-      </div>
+    <div className={cx(styles.root, className)} onClick={onClick}>
+      {topCard && (
+        <Draggable
+          draggableId={`${source}|${topCard.suit}|${topCard.rank}`}
+          index={count - 1}
+        >
+          {(provided, snapshot) => (
+            <>
+              <Card
+                className={cx(styles.card)}
+                provided={provided}
+                rank={topCard.rank}
+                snapshot={snapshot}
+                suit={topCard.suit}
+              />
+              {snapshot.isDragging && (
+                <Card
+                  className={cx(styles.card)}
+                  rank={topCard.rank}
+                  suit={topCard.suit}
+                  style={{ transform: 'none !important', visibility: 'hidden' }}
+                />
+              )}
+            </>
+          )}
+        </Draggable>
+      )}
+      {count >= 1 && getCardBack()}
+      {count >= 2 && getCardBack()}
+      {!topCard && count >= 3 && getCardBack()}
+      {count === 0 && <Card className={cx(styles.empty)} />}
     </div>
   );
 };
