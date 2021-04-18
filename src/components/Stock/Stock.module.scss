@@ -1,7 +1,14 @@
 .root {
-  width: auto;
+  position: relative;
 }
 
-.count {
-  font-family: v(open-sans);
+.card {
+  left: 0;
+  position: absolute;
+  top: 21px;
+  z-index: 1;
+}
+
+.stack {
+  z-index: 0;
 }

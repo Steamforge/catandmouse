@@ -7,11 +7,13 @@ const Card = ({
   back = false,
   className,
   onClick,
+  placeholder,
   provided,
   rank,
   snapshot,
   style,
   suit,
+  value,
 }) => (
   <div
     className={cx(
@@ -31,9 +33,12 @@ const Card = ({
   >
     {rank && (
       <>
-        <span className={cx(styles.rankTop, styles[suit])}>{rank}</span>
-        <span className={cx(styles.rankBot, styles[suit])}>{rank}</span>
+        <span className={cx(styles.rankTop, styles[suit])}>{value}</span>
+        <span className={cx(styles.rankBot, styles[suit])}>{value}</span>
       </>
+    )}
+    {placeholder && (
+      <span className={cx(styles.placeholder)}>{placeholder}</span>
     )}
   </div>
 );

@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash';
+
 export const DraggbleTypes = {
   HAND: 'hand',
   HOLD0: 'hold0',
@@ -29,12 +31,17 @@ export const ranks = [
 
 const suits = ['heart', 'diamond', 'spade', 'club'];
 
-export const deck = () => {
-  const cards = [];
+//creates deck(s) of cards
+export const deck = (num = 1) => {
+  if (num === 0) {
+    num = 1;
+  }
 
-  suits.forEach(suit => ranks.forEach(rank => cards.push({ rank, suit })));
-
-  return cards;
+  return [...Array(num)]
+    .map(() =>
+      suits.map(suit => ranks.map(rank => ({ rank, suit, value: rank })))
+    )
+    .flat(2);
 };
 
 //Fisher-Yates
@@ -60,7 +67,7 @@ export const shuffle = array => {
 
 //reorder an array
 export const reorder = (list, startIndex, endIndex) => {
-  const result = [...list];
+  const result = cloneDeep(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed)[0];
 

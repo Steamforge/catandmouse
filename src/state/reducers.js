@@ -9,14 +9,14 @@ import {
 
 const initialState = {
   cardBuild: { 0: [], 1: [], 2: [], 3: [] },
+  cardDragging: {},
   cardDraw: [],
   cardHand: [],
   cardHold: { 0: [], 1: [], 2: [], 3: [] },
   cardStock: [],
-  cardDragging: {},
 };
 
-export default (state = initialState, action) => {
+const reducers = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case SET_CARD_BUILD:
@@ -35,3 +35,5 @@ export default (state = initialState, action) => {
       return state;
   }
 };
+
+export default reducers;
