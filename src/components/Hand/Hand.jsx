@@ -1,7 +1,7 @@
 import cx from 'classnames';
 import React from 'react';
-import { Draggable, Droppable } from 'react-beautiful-dnd';
 
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 import { useSelector } from 'react-redux';
 
 import Card from '../Card';
@@ -12,7 +12,7 @@ import { DraggbleTypes } from '../../../utils';
 import * as styles from './Hand.module.scss';
 
 const Hand = () => {
-  const { cardHand, cardDragging } = useSelector(({ state }) => state);
+  const { cardDragging, cardHand } = useSelector(({ state }) => state);
   const isDropDisabled = cardDragging.droppableId !== DraggbleTypes.HAND;
 
   return (
@@ -27,11 +27,11 @@ const Hand = () => {
           ref={provided.innerRef}
           {...provided.droppableProps}
         >
-          {cardHand.map(({ rank, suit }, index) => (
+          {cardHand.map(({ rank, suit, value }, index) => (
             <Draggable
               draggableId={`${DraggbleTypes.HAND}|${suit}|${rank}`}
               index={index}
-              key={`${DraggbleTypes.HAND}|${suit}|${rank}`}
+              key={`${index}|${DraggbleTypes.HAND}|${suit}|${rank}`}
             >
               {(provided, snapshot) => (
                 <Card
@@ -40,6 +40,7 @@ const Hand = () => {
                   rank={rank}
                   snapshot={snapshot}
                   suit={suit}
+                  value={value}
                 />
               )}
             </Draggable>

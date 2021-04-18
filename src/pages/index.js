@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
-
+import { shuffle } from 'lodash';
 import { useDispatch } from 'react-redux';
-import { setCardDraw, setCardStock } from '../state/actions';
 
-import { deck, shuffle } from '../../utils';
+import { SET_CARD_DRAW, SET_CARD_STOCK } from '../state/constants';
+import { setAction } from '../state/actions';
+
+import { deck } from '../../utils';
 
 import Build from '../components/Build';
 import DragContext from '../components/DragContext';
@@ -14,23 +16,22 @@ import Layout from '../components/layout';
 import Row from '../components/Row';
 import Stock from '../components/Stock';
 
-const STOCK_SIZE = 10;
+const STOCK_SIZE = 20;
+const DECK_SIZE = 2;
 
 const IndexPage = () => {
   const dispatch = useDispatch();
 
-  const newDeck = () => shuffle(deck());
+  const newDeck = num => shuffle(deck(num));
 
   useEffect(() => {
-    const newDraw = newDeck();
-    const newStock = [];
+    //create new draw deck
+    const newDraw = newDeck(DECK_SIZE);
+    dispatch(setAction(SET_CARD_DRAW, newDraw));
 
-    for (let i = 0; i < STOCK_SIZE; i++) {
-      newStock.push(newDraw.pop());
-    }
-
-    dispatch(setCardDraw(newDraw));
-    dispatch(setCardStock(newStock));
+    //deal stock cards
+    const newStock = [...Array(STOCK_SIZE)].map(() => newDraw.pop());
+    dispatch(setAction(SET_CARD_STOCK, newStock));
   }, [dispatch]);
 
   return (

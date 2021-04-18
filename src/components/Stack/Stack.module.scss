@@ -10,9 +10,9 @@
     position: relative;
     z-index: 3;
   }
-  &:last-child {
-    box-shadow: 2px 2px 2px v(tint-black-25);
-  }
+  // &:last-child {
+  //   box-shadow: 2px 2px 2px v(tint-black-25);
+  // }
   &:nth-child(2) {
     position: absolute;
     z-index: 2;
@@ -30,4 +30,8 @@
 .empty {
   background-color: v(color-gray-light);
   border-style: dashed;
+}
+
+.count {
+  font-family: v(open-sans);
 }

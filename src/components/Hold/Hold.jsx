@@ -1,8 +1,8 @@
 import cx from 'classnames';
 import React from 'react';
 
-import { useSelector } from 'react-redux';
 import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { useSelector } from 'react-redux';
 
 import Card from '../Card';
 import DragPlaceholder from '../DragPlaceholder';
@@ -39,12 +39,12 @@ const Hold = () => {
               >
                 <Card className={cx(styles.empty)} />
 
-                {holdStack.map(({ rank, suit }, index) => (
+                {holdStack.map(({ rank, suit, value }, index) => (
                   <Draggable
                     draggableId={`${hold}|${suit}|${rank}`}
                     index={index}
                     isDragDisabled={index < holdStack.length - 1}
-                    key={`${hold}|${suit}|${rank}`}
+                    key={`${index}|${hold}|${suit}|${rank}`}
                   >
                     {(provided, snapshot) => (
                       <Card
@@ -55,6 +55,7 @@ const Hold = () => {
                         rank={rank}
                         snapshot={snapshot}
                         suit={suit}
+                        value={value}
                       />
                     )}
                   </Draggable>
